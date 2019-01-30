@@ -16,3 +16,6 @@ returns
 ```
 '1.3 \\times 10^{10}'
 ```
+
+## Future
+Make this module a Pythonized version of https://github.com/octapps/octapps/blob/master/src/text-handling/num2TeX.m
