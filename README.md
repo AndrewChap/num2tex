@@ -1,5 +1,5 @@
 # num2tex
-Converts a float or int into a latex-formatted string.  Verbatim from https://stackoverflow.com/questions/13490292/format-number-using-latex-notation-in-python/13490601#13490601
+Converts a float or int into a latex-formatted string.  Inspired by https://stackoverflow.com/questions/13490292/format-number-using-latex-notation-in-python/13490601#13490601
 
 ## Installation
 Install with
@@ -10,7 +10,7 @@ pip install num2tex
 For example,
 ```python
 from num2tex import num2tex
-num2tex(1.34e10)
+num2tex(1.34e10,precision=2)
 ```
 returns
 ```
@@ -18,4 +18,4 @@ returns
 ```
 
 ## Future
-Make this module a Pythonized version of https://github.com/octapps/octapps/blob/master/src/text-handling/num2TeX.m
+Add testing
