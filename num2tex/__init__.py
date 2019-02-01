@@ -1,5 +1,3 @@
-import math
-
 class num2tex(str):
     def __new__(self, num, precision=None):
         self.num = num
@@ -17,9 +15,9 @@ class num2tex(str):
     def __str__(self,f=None):
         if self.num is None:
             return '\mathrm{None}'
-        elif self.num == math.inf:
+        elif self.num == float('inf'):
             return '\infty'
-        elif self.num == -math.inf:
+        elif self.num == -float('inf'):
             return '-\infty'
         elif self.num != self.num:
             return '\mathrm{NaN}'
@@ -34,14 +32,14 @@ class num2tex(str):
             return r'{0} \times 10^{{{1}}}'.format(base, int(exponent))
         else:
             return num_string
-    
+
     # unambiguous string representation of num2tex object
     def __repr__(self):
         if self.precision is None:
             return 'num2tex(num={})'.format(self.num)
         else:
             return 'num2tex(num={}, precision={})'.format(self.num,self.precision)
-    
+
     # for pretty printing in a Jupyter Notebook
     def _repr_latex_(self):
         return '$$' + self.__str__() + '$$'
