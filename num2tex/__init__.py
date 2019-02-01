@@ -28,10 +28,10 @@ class num2tex(str):
         else:
             if f is None:
                 f = '0.{}'.format(self.precision)
-            num_string = "{0:{1}}".format(self.num,f)
-        if "e" in num_string:
-            base, exponent = num_string.split("e")
-            return r"{0} \times 10^{{{1}}}".format(base, int(exponent))
+            num_string = '{0:{1}}'.format(self.num,f)
+        if 'e' in num_string:
+            base, exponent = num_string.split('e')
+            return r'{0} \times 10^{{{1}}}'.format(base, int(exponent))
         else:
             return num_string
     
