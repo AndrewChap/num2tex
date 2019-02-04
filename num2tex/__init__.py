@@ -21,10 +21,11 @@ class num2tex(str):
             return '-\infty'
         elif self.num != self.num:
             return '\mathrm{NaN}'
-        if f is None and self.precision is None:
+        formatUnspecified = (f is None) or (f == '')
+        if formatUnspecified and self.precision is None:
             num_string = str(self.num)
         else:
-            if f is None:
+            if formatUnspecified:
                 f = '0.{}'.format(self.precision)
             num_string = '{0:{1}}'.format(self.num,f)
         if 'e' in num_string:
