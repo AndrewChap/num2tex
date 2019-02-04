@@ -7,15 +7,50 @@ Install with
 pip install num2tex
 ```
 ## Usage
-For example,
+`num2tex` inherits from `str`, and so can be used in a similar manner.
+
 ```python
 from num2tex import num2tex
-num2tex(1.34e10,precision=2)
+print(num2tex(13.4e10))
+```
+```
+134000000000.0
+```
+which gives the same precision and float/scientific notation formatting as `print(str(1.34e10))` or `print(str(1.34e10))`.  We can customize the format as we would for a string:
+```python
+# Print in string with two significant figures
+print('$a = {:0.2g}$'.format(num2tex(13.6e10)))
+```
+```
+'1.4 \\times 10^{11}'
+```
+Or we can set the precision from the beginning so that it always displays the desired number of significant figures.
+```python
+a = num2tex(1.4e10,precision=2)
+print('$a = {}$'.format(a))
 ```
 returns
 ```
 '1.3 \\times 10^{10}'
 ```
+but `precision` can still be overridden by a format specifier:
+```python
+print('$a = {:f}$'.format(num2tex(13.6e10,precision=2)))
+```
+```
+$a = 136000000000.000000$
+```
+## num2tex in Jupyter
+`num2tex` will produce Jupyter-friendly output:
+```python
+from num2tex import num2tex
+a = num2tex(13.4e10,precision=2)
+a
+```
+![Jupyter output](https://raw.githubusercontent.com/AndrewChap/num2tex/master/images/jp_samp_0.png)
 
 ## Future
-Add testing
+ 1. Add format option i.e. `num2tex(13.6e10,format=':.2g')`
+ 2. Add support for Google Collaboratory
+ 3. Add testing
+ 4. Get user feedback
