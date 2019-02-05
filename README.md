@@ -1,5 +1,9 @@
 # num2tex
-Converts a float or int into a latex-formatted string.  Inspired by https://stackoverflow.com/questions/13490292/format-number-using-latex-notation-in-python/13490601#13490601
+Converts a float or int into a latex-formatted string.  `num2tex` inherits from `str`.  
+
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [num2tex in Jupyter](#num2tex-in-jupyter)
 
 ## Installation
 Install with
@@ -48,6 +52,9 @@ a = num2tex(13.4e10,precision=2)
 a
 ```
 ![Jupyter output](https://raw.githubusercontent.com/AndrewChap/num2tex/master/images/jp_samp_0.png)
+
+## Thanks
+num2tex is inspired by https://stackoverflow.com/questions/13490292/format-number-using-latex-notation-in-python/13490601#13490601 and https://github.com/RoaldFre/octaveScripts/blob/master/num2tex.m
 
 ## Future
  1. Add format option i.e. `num2tex(13.6e10,format=':.2g')`
