@@ -8,4 +8,7 @@ setup(name='num2tex',
       author_email='andrew@andrewchap.com',
       license='MIT',
       packages=['num2tex'],
-      zip_safe=False)
+      zip_safe=False,
+      test_suite='nose.collector',
+      tests_require=['nose'],
+      )
