@@ -1,9 +1,11 @@
 # num2tex
-Converts a float or int into a latex-formatted string.  `num2tex` inherits from `str`.  
+Converts a float or int into a TeX-formatted string.  `num2tex` inherits from `str`.  
 
 1. [Installation](#installation)
 2. [Usage](#usage)
 3. [num2tex in Jupyter](#num2tex-in-jupyter)
+4. [Future Work](#future-work)
+5. [Thanks](#thanks)
 
 ## Installation
 Install with
@@ -11,7 +13,7 @@ Install with
 pip install num2tex
 ```
 ## Usage
-`num2tex` inherits from `str`, and so can be used in a similar manner.
+`num2tex` can be used in a similar manner to that of `str`
 
 ```python
 from num2tex import num2tex
@@ -45,19 +47,15 @@ print('$a = {:f}$'.format(num2tex(13.6e10,precision=2)))
 $a = 136000000000.000000$
 ```
 ## num2tex in Jupyter
-`num2tex` will produce Jupyter-friendly output:
-```python
-from num2tex import num2tex
-a = num2tex(13.4e10,precision=2)
-a
-```
-![Jupyter output](https://raw.githubusercontent.com/AndrewChap/num2tex/master/images/jp_samp_0.png)
+`num2tex` will produce Jupyter-friendly output by default, and can be used in LaTeX-friendly modules like Matplotlib:
 
-## Thanks
-num2tex is inspired by https://stackoverflow.com/questions/13490292/format-number-using-latex-notation-in-python/13490601#13490601 and https://github.com/RoaldFre/octaveScripts/blob/master/num2tex.m
+<img src="https://raw.githubusercontent.com/AndrewChap/num2tex/master/images/jp_samp_1.png" alt="Sample Jupyter output" width="390"/>
 
-## Future
- 1. Add format option i.e. `num2tex(13.6e10,format=':.2g')`
- 2. Add support for Google Collaboratory
- 3. Add testing
+## Future Work
+ 1. Add global option to use `\cdot 10^{p}` or `(10^p)` instead of `\times 10^{p}` in expoential-format
+ 2. Support for Google Collaboratory
+ 3. Additional testing in num2tex/tests
  4. Get user feedback
+ 
+ ## Thanks
+num2tex is inspired by a [relevant stack overflow question and Lauritz V. Thaulow's answer](https://stackoverflow.com/questions/13490292/format-number-using-latex-notation-in-python/13490601#13490601) as well as a [num2TeX function for GNU Octave by Karl Wette](https://github.com/octapps/octapps/blob/84d8b2c0b6e1efa1c66c0c9b380e13cf4c6c95e0/src/text-handling/num2TeX.m)
