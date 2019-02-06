@@ -43,4 +43,4 @@ class num2tex(str):
 
     # for pretty printing in a Jupyter Notebook
     def _repr_latex_(self):
-        return '$$' + self.__str__() + '$$'
+        return '$' + self.__str__() + '$'

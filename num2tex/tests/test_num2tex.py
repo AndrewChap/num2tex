@@ -18,7 +18,7 @@ class inputAndOutput:
         else:
             self.str = output_str
         self.repr = 'num2tex(num={})'.format(str(value))
-        self.repr_latex = '$${}$$'.format(self.str)
+        self.repr_latex = '${}$'.format(self.str)
         inputAndOutput.testInputs.append(self)
     def __str__(self):
         return self.str
@@ -26,6 +26,8 @@ class inputAndOutput:
         return self.repr
     def _repr_latex_(self):
         return self.repr_latex
+    def __format__(self):
+        return self.format
 
 float_tester = inputAndOutput(
         value = 13.6e14)
@@ -57,6 +59,19 @@ class TestNum2tex(unittest.TestCase):
                 with self.subTest(
                     msg="Test if num2tex(num={}).{} returns '{}'".format(testInput.value,outputType,s)):
                     self.assertEqual(a,s)
+    def test_format(self):
+        pairs = [
+                    [
+                        "'a = {}'.format(num2tex(4.6325,precision=2))",
+                        'a = {}'.format(num2tex(4.6325,precision=2)),
+                        'a = 4.6',
+                    ]
+                ]
+        for pair in pairs:
+            with self.subTest(
+                    msg="check if [{}] is equal to [{}]".format(pair[0],pair[2])):
+                self.assertEqual(pair[1],pair[2])
+
 
 if __name__ == '__main__':
     unittest.main()
