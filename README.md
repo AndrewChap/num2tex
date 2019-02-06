@@ -52,7 +52,7 @@ $a = 136000000000.000000$
 <img src="https://raw.githubusercontent.com/AndrewChap/num2tex/master/images/jp_samp_1.png" alt="Sample Jupyter output" width="390"/>
 
 ## Future Work
- 1. Add global option to use `\cdot 10^{p}` or `(10^p)` instead of `\times 10^{p}` in expoential-format
+ 1. Add global option to use `\cdot 10^{p}` or `(10^p)` instead of `\times 10^{p}` in exponential-format
  2. Support for Google Collaboratory
  3. Additional testing in num2tex/tests
  4. Get user feedback
