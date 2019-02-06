@@ -1,5 +1,5 @@
 # num2tex
-Converts a float or int into a TeX-formatted string.  `num2tex` inherits from `str`.  
+`num2tex` converts a `float` or `int` into a TeX-formatted string.  `num2tex` inherits from `str`.  
 
 1. [Installation](#installation)
 2. [Usage](#usage)
@@ -17,35 +17,42 @@ pip install num2tex
 
 ```python
 from num2tex import num2tex
-print(num2tex(13.4e10))
+print(num2tex(13.6e15))
 ```
 ```
-134000000000.0
+1.36 \times 10^{16}
 ```
-which gives the same precision and float/scientific notation formatting as `print(str(1.34e10))` or `print(str(1.34e10))`.  We can customize the format as we would for a string:
+which gives the same precision and float/scientific notation formatting as `print(str(13.6e15))` or `print(13.6e15)` but in TeX format.  For some numbers, the default `str` formatting may be unintuitive and give too many significant figures:
 ```python
-# Print in string with two significant figures
-print('$a = {:0.2g}$'.format(num2tex(13.6e10)))
+print(num2tex(9.876e15))
 ```
 ```
-'1.4 \\times 10^{11}'
+9876000000000000.0
 ```
+so instead we can use [`format`](https://pyformat.info/) as we would for a string, in this example specifying 3 significant figures:
+```python
+print('a = {:.3g}'.format(num2tex(9.876e15)))
+```
+```
+a = 9.88 \times 10^{15}
+```
+
 Or we can set the precision from the beginning so that it always displays the desired number of significant figures.
 ```python
-a = num2tex(1.4e10,precision=2)
+a = num2tex(1.26e10,precision=2)
 print('$a = {}$'.format(a))
 ```
-returns
 ```
-'1.3 \\times 10^{10}'
+$1.3 \\times 10^{10}$
 ```
-but `precision` can still be overridden by a format specifier:
+but keep in mind that `precision` can still be overridden by a format specifier:
 ```python
 print('$a = {:f}$'.format(num2tex(13.6e10,precision=2)))
 ```
 ```
 $a = 136000000000.000000$
 ```
+
 ## num2tex in Jupyter
 `num2tex` will produce Jupyter-friendly output by default, and can be used in LaTeX-friendly modules like Matplotlib:
 
@@ -53,9 +60,11 @@ $a = 136000000000.000000$
 
 ## Future Work
  1. Add global option to use `\cdot 10^{p}` or `(10^p)` instead of `\times 10^{p}` in exponential-format
- 2. Support for Google Collaboratory
- 3. Additional testing in num2tex/tests
- 4. Get user feedback
+ 2. Add `format` option e.g. `a = num2tex(num=1.36e10,format='.2g')`
+ 3. TeX-rendering support for Google Collaboratory
+ 4. Additional testing
+ 5. Get user feedback
+ 6. Look into better Jupyter display of something like `print('$a = {}$'.format(a))` without needing to import `Display` and `Math`, possibly by allowing `num2tex` to accept a string input, and using a different `_repr_latex_()` function if the input is a string.
  
  ## Thanks
 num2tex is inspired by a [relevant stack overflow question and Lauritz V. Thaulow's answer](https://stackoverflow.com/questions/13490292/format-number-using-latex-notation-in-python/13490601#13490601) as well as a [num2TeX function for GNU Octave by Karl Wette](https://github.com/octapps/octapps/blob/84d8b2c0b6e1efa1c66c0c9b380e13cf4c6c95e0/src/text-handling/num2TeX.m)
