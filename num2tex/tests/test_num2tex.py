@@ -11,21 +11,30 @@ class inputAndOutput:
             self,
             value,
             output_str = None,
+            output_str_dict = None,
             ):
         self.value = value
-        if output_str is None:
-            self.str = str(value)
+        if output_str_dict is not None:
+            self.output_is_dict = True
+            self.output_str_dict = output_str_dict
         else:
-            self.str = output_str
-        self.repr = 'num2tex(num={})'.format(str(value))
-        self.repr_latex = '${}$'.format(self.str)
+            self.output_is_dict = False
+            if output_str is None:
+                self.str = str(value)
+            else:
+                self.str = output_str
+        #self.repr = 'num2tex(num={})'.format(str(value))
+        #self.repr_latex = '${}$'.format(self.str)
         inputAndOutput.testInputs.append(self)
+    def set_exp_format(self,exp_format):
+        self.str = self.output_str_dict[exp_format]
+
     def __str__(self):
         return self.str
     def __repr__(self):
-        return self.repr
+        return 'num2tex(num={})'.format(str(self.value))
     def _repr_latex_(self):
-        return self.repr_latex
+        return '${}$'.format(self.str)
     def __format__(self):
         return self.format
 
@@ -34,7 +43,12 @@ float_tester = inputAndOutput(
 
 exp_tester = inputAndOutput(
         value = 13.6e15,
-        output_str = '1.36 \\times 10^{16}')
+        output_str_dict = {
+            'times'       : '1.36 \\times 10^{16}',
+            'cdot'        : '1.36 \\cdot 10^{16}',
+            'parentheses' : '1.36 (10^{16})',
+            '\,e{}'       : '1.36 \,e{16}',
+        })
 
 inf_tester = inputAndOutput(
         value = 1.7976931348623159e+308,
@@ -54,11 +68,21 @@ class TestNum2tex(unittest.TestCase):
             print('  Testing method {}.............'.format(outputType))
             for testInput in inputAndOutput.testInputs:
                 print('    Testing value {}'.format(testInput.value))
-                a = getattr(num2tex(testInput.value),outputType)()
-                s = getattr(testInput,outputType)()
-                with self.subTest(
-                    msg="Test if num2tex(num={}).{} returns '{}'".format(testInput.value,outputType,s)):
-                    self.assertEqual(a,s)
+                if testInput.output_is_dict:
+                    testedStrings = []
+                    acceptStrings = []
+                    for key,val in testInput.output_str_dict.items():
+                        testedStrings.append(getattr(num2tex(testInput.value,exp_format=key),outputType)())
+                        testInput.set_exp_format(key)
+                        acceptStrings.append(getattr(testInput,outputType)())
+                else:
+                    acceptStrings = [getattr(testInput,outputType)()]
+                    testedStrings = [getattr(num2tex(testInput.value),outputType)()]
+                for acceptString,testedString in zip(acceptStrings,testedStrings):
+                    with self.subTest(
+                        msg="Test if {} returns '{}'".format(testedString,acceptString)):
+                        self.assertEqual(acceptString,testedString)
+
     def test_format(self):
         pairs = [
                     [
@@ -71,7 +95,6 @@ class TestNum2tex(unittest.TestCase):
             with self.subTest(
                     msg="check if [{}] is equal to [{}]".format(pair[0],pair[2])):
                 self.assertEqual(pair[1],pair[2])
-
 
 if __name__ == '__main__':
     unittest.main()
