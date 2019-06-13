@@ -8,7 +8,7 @@ def configure(**kwargs): #exp_format=None, display_singleton=None):
     global option_configure_help_text, option_exp_format, option_display_singleton
 
     if 'help_text' in kwargs:
-        option_configure_help_text = kwargs[help_text]
+        option_configure_help_text = kwargs['help_text']
     if option_configure_help_text:
         print('''num2tex configure options:
  - help_text: boolean whether this help text is displayed when configure() is called
