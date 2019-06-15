@@ -1,3 +1,4 @@
+import pdb
 # Default options
 option_configure_help_text = True
 option_exp_format = '\\times 10^{}'
@@ -59,18 +60,19 @@ class num2tex(str):
             return '\\mathrm{NaN}'
         formatUnspecified = (format_spec is None) or (format_spec == '')
         if formatUnspecified and self.precision is None:
-            num_string = str(self.num)
+            num_string = self
         else:
             if formatUnspecified:
-                format_spec = '0.{}'.format(self.precision)
-            num_string = '{0:{1}}'.format(self.num,format_spec)
+                format_spec = str.format('0.{}',self.precision)
+            format_spec_braced = '{:'+format_spec+'}'
+            num_string = str.format(format_spec_braced,float(self))
         if 'e' in num_string:
             base, exponent = num_string.split('e')
-            exp = (self.exp_format.format('{{{}}}')).format(int(exponent))
+            exp = str.format((str.format(self.exp_format,'{{{}}}')),int(exponent))
             if base == '1' and self.display_singleton is False:
-                return r'{0}'.format(exp)
+                return str.format(r'{0}',exp)
             else:
-                return r'{0} {1}'.format(base,exp)
+                return str.format(r'{0} {1}',base,exp)
         else:
             return num_string
 
