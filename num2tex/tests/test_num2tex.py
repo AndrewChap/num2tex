@@ -89,6 +89,11 @@ class TestNum2tex(unittest.TestCase):
                         "'a = {}'.format(num2tex(4.6325,precision=2))",
                         'a = {}'.format(num2tex(4.6325,precision=2)),
                         'a = 4.6',
+                    ],
+                    [
+                        "'{0:.2e} + {1:.2e}'.format(num2tex(0.00000012423),num2tex(0.00000000000009))",
+                        '{0:.2e} + {1:.2e}'.format(num2tex(0.00000012423),num2tex(0.00000000000009)),
+                        '1.24 \\times 10^{-7} + 9.00 \\times 10^{-14}',
                     ]
                 ]
         for pair in pairs:
