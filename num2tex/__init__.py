@@ -1,4 +1,3 @@
-import pdb
 # Default options
 option_configure_help_text = True
 option_exp_format = '\\times 10^{}'
