@@ -58,13 +58,25 @@ $a = 136000000000.000000$
 
 <img src="https://raw.githubusercontent.com/AndrewChap/num2tex/master/images/jp_samp_1.png" alt="Sample Jupyter output" width="390"/>
 
+## Using \cdot or parentheses to display the exponent
+
+Use the `num2tex.configure()` option to change how the exponent is displayed:
+```python
+>>>from num2tex import num2tex
+>>>from num2tex import configure as num2tex_configure
+>>>num2tex_configure(exp_format='cdot')
+>>>num2tex(1.3489e17)
+'1.3489 \cdot 10^{17}'
+>>>num2tex_configure(exp_format='parentheses')
+'1.3489 (10^{17})'
+```
+
 ## Future Work
- 1. Add global option to use `\cdot 10^{p}` or `(10^p)` instead of `\times 10^{p}` in exponential-format
- 2. Add `format` option e.g. `a = num2tex(num=1.36e10,format='.2g')`
- 3. TeX-rendering support for Google Collaboratory
- 4. Additional testing
- 5. Get user feedback
- 6. Look into better Jupyter display of something like `print('$a = {}$'.format(a))` without needing to import `Display` and `Math`, possibly by allowing `num2tex` to accept a string input, and using a different `_repr_latex_()` function if the input is a string.
+ 1. Add `format` option e.g. `a = num2tex(num=1.36e10,format='.2g')`
+ 2. TeX-rendering support for Google Collaboratory
+ 3. Additional testing
+ 4. Get user feedback
+ 5. Look into better Jupyter display of something like `print('$a = {}$'.format(a))` without needing to import `Display` and `Math`, possibly by allowing `num2tex` to accept a string input, and using a different `_repr_latex_()` function if the input is a string.
  
  ## Thanks
 num2tex is inspired by a [relevant stack overflow question and Lauritz V. Thaulow's answer](https://stackoverflow.com/questions/13490292/format-number-using-latex-notation-in-python/13490601#13490601) as well as a [num2TeX function for GNU Octave by Karl Wette](https://github.com/octapps/octapps/blob/84d8b2c0b6e1efa1c66c0c9b380e13cf4c6c95e0/src/text-handling/num2TeX.m)
