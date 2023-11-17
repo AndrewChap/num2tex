@@ -62,6 +62,11 @@ nan_tester = inputAndOutput(
         value = 1.7976931348623159e+308-1.7976931348623159e+308,
         output_str = '\\mathrm{NaN}')
 
+one_tester = inputAndOutput(
+        value = 10**-6,
+        output_str = '10^{-6}'
+    )
+
 class TestNum2tex(unittest.TestCase):
     def test_methods(self):
         for outputType in ['__str__','__repr__','_repr_latex_']:

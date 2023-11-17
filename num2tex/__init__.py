@@ -28,6 +28,7 @@ class num2tex(str):
         self.num = num
         self.precision = precision
         self.format_spec = format_spec
+        self.exp_only_format = '10^{}'
         self.exp_format = option_exp_format if exp_format is None else exp_format
         if self.exp_format == 'times':
             self.exp_format = '\\times 10^{}'
@@ -67,10 +68,11 @@ class num2tex(str):
             num_string = str.format(format_spec_braced,float(self))
         if 'e' in num_string:
             base, exponent = num_string.split('e')
-            exp = str.format((str.format(self.exp_format,'{{{}}}')),int(exponent))
             if base == '1' and self.display_singleton is False:
+                exp = str.format((str.format(self.exp_only_format, '{{{}}}')), int(exponent))
                 return str.format(r'{0}',exp)
             else:
+                exp = str.format((str.format(self.exp_format, '{{{}}}')), int(exponent))
                 return str.format(r'{0} {1}',base,exp)
         else:
             return num_string
